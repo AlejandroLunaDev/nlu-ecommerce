@@ -1,0 +1,8 @@
+.searchIcon {
+    fill:#61005D;
+}
+
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+}
