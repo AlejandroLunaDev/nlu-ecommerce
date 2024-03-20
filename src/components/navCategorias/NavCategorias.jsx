@@ -39,7 +39,7 @@ export default function NavCategorias({ handleCategoryChange }) {
               key={index}
               onClick={() => handleCategoryClick(categoria.name)}
             >
-              <p>{categoria.name}</p>
+              <p className="hover:border-b border-[#61005D]">{categoria.name}</p>
             </NavLink>
           ))}
         </article>

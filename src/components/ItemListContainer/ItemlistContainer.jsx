@@ -36,7 +36,7 @@ export function ItemlistContainer({ limit }) {
 
   return (
     <div className="item-list-container">
-      <h2>Nuestros Productos</h2>
+      <h2 className="my-4 font-bold">Nuestros Productos</h2>
       <ItemList products={products} />
     </div>
   );

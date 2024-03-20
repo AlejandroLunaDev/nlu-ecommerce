@@ -8,7 +8,9 @@ import { AppContext } from "../context/AppContext";
 import { useContext } from "react";
 
 export function Navbar() {
-  const { filterText, setFilterText } = useContext(AppContext);
+ const {  setFilterText } = useContext(AppContext);
+
+ 
   const handleCategoryChange = (categoria) => {
     setFilterText(categoria);
   };
