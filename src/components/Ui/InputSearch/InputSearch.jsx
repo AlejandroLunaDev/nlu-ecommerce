@@ -3,38 +3,27 @@
 import { useTypewriter } from "react-simple-typewriter";
 import categoriasData from "./categorias.json";
 import { IoIosSearch } from "react-icons/io";
-import {AppContext} from "../../../context/AppContext"
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { AppContext } from "@/context/AppContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function InputSearch() {
-
   const { filterText, setFilterText } = useContext(AppContext);
   const navigate = useNavigate();
 
-
-  // Dejo esta funcion por si quiero agregarle la funcionalidad de filtrado al cambio del input
-
- /*  const handleInputChange = (event) => {
-    setFilterText(event.target.value);
-  }; */
-
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
-      const searchQuery = event.target.value.trim(); 
-      if (searchQuery){
+      const searchQuery = event.target.value.trim();
+      if (searchQuery) {
         setFilterText(searchQuery);
-        navigate(`/search/${searchQuery}`); 
-      }else{
-        navigate('/')
-        setFilterText('');
-        
+        navigate(`/search/${searchQuery}`);
+      } else {
+        navigate("/");
+        setFilterText("");
       }
     }
   };
-
-
 
   const categorias = categoriasData.categorias.map(
     (categoria) => categoria.name
@@ -49,11 +38,10 @@ export function InputSearch() {
   return (
     <form className="relative">
       <input
-     
         type="text"
         placeholder={`Buscar "${text}"`}
         className="border border-gray-500 focus:outline-[#61005D] px-4 py-1 w-80 rounded-md"
-       /*  onChange={handleInputChange} */
+        /*  onChange={handleInputChange} */
         onKeyDown={handleKeyDown}
       />
       <IoIosSearch className="searchIcon absolute right-2 top-0 translate-y-2/4" />

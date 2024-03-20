@@ -11,13 +11,13 @@ export function Navbar() {
   const { filterText, setFilterText } = useContext(AppContext);
   const handleCategoryChange = (categoria) => {
     setFilterText(categoria);
-  
   };
 
   const handleLogoClick = () => {
-    setFilterText('');
-    document.querySelector('.border-gray-500').value = '';  
+    setFilterText("");
+    document.querySelector(".border-gray-500").value = "";
   };
+
   return (
     <>
       <header className="w-full border-b-[1px] border-[#61005D]">

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useContext } from 'react';
 import { ItemList } from '../ItemList/ItemList';
-import { getProduct } from '../../service/api/MercadoLibre';
-import { AppContext } from '../../context/AppContext';
+import { getProduct } from '@/service/api/MercadoLibre';
+import { AppContext } from '@/context/AppContext';
 import { useParams } from 'react-router-dom';
 
 export function ItemlistContainer({ limit }) {
