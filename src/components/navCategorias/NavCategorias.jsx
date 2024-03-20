@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Hambuerguer } from "../icons/Hambuerguer";
 import categoriaData from "../Ui/InputSearch/categorias.json";
 import { NavLink, useNavigate } from "react-router-dom";
+import { importProductsToFirebase } from '../../service/firebase/firebase';
 
 export default function NavCategorias({ handleCategoryChange }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +17,8 @@ export default function NavCategorias({ handleCategoryChange }) {
     setIsMenuOpen(false);
   };
 
-  const handleCategoryClick = (categoria) => {
+  const handleCategoryClick = async (categoria) => {
+    await importProductsToFirebase('', categoria.name); 
     navigate(`/categorias/${categoria.name.toLowerCase()}`); 
     handleCategoryChange(categoria.name); 
   };
