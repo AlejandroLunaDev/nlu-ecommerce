@@ -4,18 +4,26 @@ import { routes } from "../routes/routes";
 import { InputSearch } from "../components/Ui/InputSearch/InputSearch";
 import CardWidget from "../components/Ui/CardWidget/CardWidget";
 import NavCategorias from "../components/navCategorias/NavCategorias";
+import { AppContext } from "../context/AppContext";
+import { useContext } from "react";
 
 export function Navbar() {
+  const { filterText, setFilterText } = useContext(AppContext);
   const handleCategoryChange = (categoria) => {
+    setFilterText(categoria);
+  
+  };
 
-    console.log('Categoría seleccionada:', categoria);
+  const handleLogoClick = () => {
+    setFilterText('');
+    document.querySelector('.border-gray-500').value = '';  
   };
   return (
     <>
       <header className="w-full border-b-[1px] border-[#61005D]">
         <nav className="flex items-center p-2 gap-10">
           <section className="flex items-center gap-3">
-            <NavLink to={routes.home}>
+            <NavLink to={routes.home} onClick={handleLogoClick}>
               <Nolouso />
             </NavLink>
             <InputSearch />

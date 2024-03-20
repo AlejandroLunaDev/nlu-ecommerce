@@ -6,13 +6,14 @@ import {AppContext} from './AppContext';
 
 export function AppProvider( {children} ) {
 
- // GLOBAL COUNTER //
+ // GLOBAL CONTEXT //
  const [count, setCount] = useState(0)
+ const [filterText, setFilterText] = useState('');
 
-
+ 
 
   return (
-    <AppContext.Provider value={{count,setCount}}>
+    <AppContext.Provider value={{count,setCount,filterText,setFilterText}}>
         {children}
     </AppContext.Provider>
   )

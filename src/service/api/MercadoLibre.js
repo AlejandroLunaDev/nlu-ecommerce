@@ -1,5 +1,4 @@
 export async function getProduct(limit='',searchQuery){
-   /*  const searchQuery = 'ropa,celulares,computacion'; */
     const URL_BASE = `https://api.mercadolibre.com/sites/MLA/search?q=${searchQuery}&limit=${limit}`
     try{
         const res = await fetch(URL_BASE)

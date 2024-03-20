@@ -10,7 +10,9 @@ export function AppRoutes() {
       <Routes>
         <Route element={<Navbar />}>
           <Route index element={<Home />} />
-          <Route path="/categorias/:category" element={<ItemlistContainer limit={10} />} />
+          <Route path="/home" element={<Home />} /> 
+          <Route path="/categorias/:category" element={<ItemlistContainer limit={30} />} />
+          <Route path={"/search/:searchQuery"} element={<ItemlistContainer limit={20} />} />
         </Route>
           <Route path={routes.error} element={<Error404 />} />
       </Routes>

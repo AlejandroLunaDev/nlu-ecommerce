@@ -3,4 +3,5 @@ export const routes = {
     error: '*',
     category: '/category/:id',
     item: '/item/:id',
+    search: '/search/:searchQuery', 
   }

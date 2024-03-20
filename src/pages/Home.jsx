@@ -5,7 +5,7 @@ import { ItemlistContainer } from "../components/ItemListContainer/ItemlistConta
 export function Home() {
   return (
     <section>
-      <ItemlistContainer limit={30} />
+      <ItemlistContainer limit={50} />
     </section>
   )
 }

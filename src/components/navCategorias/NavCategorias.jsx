@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { Hambuerguer } from "../icons/Hambuerguer";
 import categoriaData from "../Ui/InputSearch/categorias.json";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function NavCategorias({ handleCategoryChange }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleMouseEnter = () => {
     setIsMenuOpen(true);
@@ -16,8 +17,8 @@ export default function NavCategorias({ handleCategoryChange }) {
   };
 
   const handleCategoryClick = (categoria) => {
-    handleCategoryChange(categoria);
-    setIsMenuOpen(false); // Cerrar el menú al seleccionar una categoría
+    navigate(`/categorias/${categoria.name.toLowerCase()}`); 
+    handleCategoryChange(categoria.name); 
   };
 
   return (
