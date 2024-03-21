@@ -9,6 +9,8 @@ export function useProductList(limit) {
   const { filterText } = useContext(AppContext);
   const { category } = useParams();
 
+
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
