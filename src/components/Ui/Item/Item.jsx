@@ -13,8 +13,9 @@ const handleAddClick = () => {
 
   const truncatedTitle = product.title.length > 20 ? `${product.title.slice(0,20)}...` : product.title;
   return (
-    <Link to={`/product/${product.id}`}>
+    
     <article className="border border-[#61005D] rounded-md p-3">
+      <Link to={`/product/${product.id}`}>
       <header className="flex justify-center border-b border-b-[#61005D] ">
         <img className="mb-2" src={product.thumbnail} alt={product.title} />
       </header>
@@ -23,12 +24,12 @@ const handleAddClick = () => {
     <h3 className=" text-sm">{truncatedTitle}</h3>
     </Tooltip>
     <p className=" font-medium">$ {product.price}</p>
+    </Link>
     <div className="flex justify-center mt-6">
     <button className="bg-[#61005D] text-white rounded-md py-3 w-full" onClick={handleAddClick }>
       Agregar
     </button>
     </div>
   </article>
-    </Link>
   )
 }

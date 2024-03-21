@@ -12,13 +12,18 @@ export function ItemDetail({product, loading}) {
   }
 
   return (
-    <article className="border border-[#61005D] rounded-md p-3">
-      <header className="flex justify-center border-b border-b-[#61005D]">
-        <img className="mb-2" src={product.thumbnail} alt={product.title} />
+    <article className="">
+      <header className="">
+        <img className="" src={product.thumbnail} alt={product.title} />
       </header>
-      <p className="text-md font-bold">{product.attributes[0].name}</p>
-      <h3 className="text-sm">{product.title}</h3>
-      <p className="font-medium">$ {product.price}</p>
+      <div>
+      <h3 className="">{product.title}</h3>
+      <div>
+      <p className="">{product.attributes[0].name}</p>
+      <span>SKU:{product.id}</span>
+      </div>
+      <p className="">$ {product.price}</p>
+      </div>
     </article>
   );
 }
