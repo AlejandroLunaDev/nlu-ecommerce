@@ -15,7 +15,7 @@ const handleAddClick = () => {
   return (
     
     <article className="border border-[#61005D] rounded-md p-3">
-      <Link to={`/product/${product.id}`}>
+      <Link  to={`/product/${product.databaseId}`}>
       <header className="flex justify-center border-b border-b-[#61005D] ">
         <img className="mb-2" src={product.thumbnail} alt={product.title} />
       </header>

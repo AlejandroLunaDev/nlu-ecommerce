@@ -6,7 +6,7 @@ import { ItemlistContainer } from "../components/ItemListContainer/ItemlistConta
 export function Home() {
   return (
     <section className=" px-8">
-      <ItemlistContainer limit={50} />
+      <ItemlistContainer limit={20} />
     </section>
   )
 }

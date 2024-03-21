@@ -14,7 +14,7 @@ export function AppRoutes() {
           <Route path="/home" element={<Home />} /> 
           <Route path="/categorias/:category" element={<ItemlistContainer limit={32} />} />
           <Route path={"/search/:searchQuery"} element={<ItemlistContainer limit={20} />} />
-          <Route path="/product/:id" element={<ItemDetailContianer />} />
+          <Route path="/product/:databaseId" element={<ItemDetailContianer />} />
         </Route>
           <Route path={routes.error} element={<Error404 />} />
       </Routes>

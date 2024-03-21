@@ -4,11 +4,11 @@ export function ItemDetail({product, loading}) {
 
 
   if (loading) {
-    return <p>Cargando...</p>; // Mostrar mensaje de carga mientras se obtienen los datos
+    return <p>Cargando...</p>; 
   }
 
   if (!product) {
-    return <p>Producto no encontrado.</p>; // Mostrar mensaje si no se encuentra el producto
+    return <p>Producto no encontrado.</p>; 
   }
 
   return (
