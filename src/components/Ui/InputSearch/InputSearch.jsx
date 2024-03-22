@@ -3,12 +3,12 @@
 import { useTypewriter } from "react-simple-typewriter";
 import categoriasData from "./categorias.json";
 import { IoIosSearch } from "react-icons/io";
-import { AppContext } from "@/context/AppContext";
+/* import { AppContext } from "@/context/AppContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; */
 
 export function InputSearch() {
-  const { filterText, setFilterText } = useContext(AppContext);
+/*   const { filterText, setFilterText } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleKeyDown = (event) => {
@@ -23,7 +23,7 @@ export function InputSearch() {
         setFilterText("");
       }
     }
-  };
+  }; */
 
   const categorias = categoriasData.categorias.map(
     (categoria) => categoria.name
@@ -42,7 +42,7 @@ export function InputSearch() {
         placeholder={`Buscar "${text}"`}
         className="border border-gray-500 focus:outline-[#61005D] px-4 py-1 w-80 rounded-md"
         /*  onChange={handleInputChange} */
-        onKeyDown={handleKeyDown}
+       /*  onKeyDown={handleKeyDown} */
       />
       <IoIosSearch className="searchIcon absolute right-2 top-0 translate-y-2/4" />
     </form>

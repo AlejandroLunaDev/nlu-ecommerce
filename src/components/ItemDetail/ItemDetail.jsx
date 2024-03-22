@@ -1,28 +1,19 @@
 
 
-export function ItemDetail({product, loading}) {
+export function ItemDetail({item}) {
 
 
-  if (loading) {
-    return <p>Cargando...</p>; 
-  }
 
-  if (!product) {
-    return <p>Producto no encontrado.</p>; 
-  }
 
   return (
     <article className="">
       <header className="">
-        <img className="" src={product.thumbnail} alt={product.title} />
+        <img className=" h-32" src={item?.imagen} alt={item?.nombre} />
       </header>
       <div>
-      <h3 className="">{product.title}</h3>
-      <div>
-      <p className="">{product.attributes[0].name}</p>
-      <span>SKU:{product.id}</span>
-      </div>
-      <p className="">$ {product.price}</p>
+      <h3 className="">{item?.nombre}</h3>
+      <p>{item?.descripcion}</p>
+      <p className="">$ {item?.precio}</p>
       </div>
     </article>
   );

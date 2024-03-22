@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+/* import { useState, useEffect, useContext } from 'react';
 import { getProduct } from '../service/api/MercadoLibre';
 import { importProductsToFirebase } from '../service/firebase/firebase';
 import { AppContext } from '../context/AppContext';
@@ -36,3 +36,4 @@ export function useProductList(limit) {
 
   return products;
 }
+ */
