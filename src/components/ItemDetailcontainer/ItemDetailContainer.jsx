@@ -5,8 +5,7 @@ import { useParams } from "react-router";
 import { db } from "../../service/firebase/firebase";
 import { AppContext } from "../../context/AppContext";
 
-export function ItemDetailContianer() {
-
+export function ItemDetailContainer() {
   const [item, setItem] = useState(null)
   const id = useParams().firestoreId;
  
@@ -20,12 +19,10 @@ export function ItemDetailContianer() {
       )
     })
  }, [id])
- 
 
-return(
-<>
-{item && <ItemDetail item={item} /> }
-</>
 
-)
+
+  return (
+    <ItemDetail products={item} />
+  );
 }

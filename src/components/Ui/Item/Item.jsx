@@ -1,15 +1,12 @@
-import { Tooltip } from "@mui/material";
+
 import { useContext } from "react";
 import { AppContext } from "../../../context/AppContext";
 import { Link } from 'react-router-dom';
+import { AddToCartButton } from "../Button/AddToCartButton";
 
 
   export function Item({product}) {
-const {count,setCount} = useContext(AppContext)
-
-const handleAddClick = () => {
-  setCount(count + 1); 
-};
+const {addToCart} = useContext(AppContext)
 
 
   return (
@@ -23,9 +20,7 @@ const handleAddClick = () => {
     <p className=" font-medium">$ {product.precio}</p>
     </Link>
     <div className="flex justify-center mt-6">
-    <button className="bg-[#61005D] text-white rounded-md py-3 w-full" onClick={handleAddClick }>
-      Agregar
-    </button>
+    <AddToCartButton onClick={()=> addToCart(product)} text={'Agregar'} />
     </div>
   </article>
   )

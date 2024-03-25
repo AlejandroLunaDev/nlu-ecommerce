@@ -1,15 +1,19 @@
-    import { Add } from "../../../components/icons/Add";
-    import { Remove } from "../../../components/icons/Remove";
+import React from 'react';
+import { Add } from '@/components/icons/Add';
+import { Remove } from '@/components/icons/Remove';
 
-    export function ItemCount() {
+export function ItemCount({ quantity, onAddCart, onRemoveCart }) {
     return (
         <section>
-        <button>
-            <Add />
-        </button>
-        <button>
-            <Remove />
-        </button>
+            <article>
+                <button onClick={() => onAddCart()}>
+                    <Add />
+                </button>
+                {quantity}
+                <button onClick={() => onRemoveCart()}>
+                    <Remove />
+                </button>
+            </article>
         </section>
     );
-    }
+}
