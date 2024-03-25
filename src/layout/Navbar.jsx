@@ -35,19 +35,19 @@ export function Navbar() {
           <section className="hidden md:flex">
             <ul className="flex gap-4">
               <li>
-                <NavLink className="flex gap-2">
+                <NavLink to={routes.error} className="flex gap-2">
                   <Box />
                   Mis Anuncios
                 </NavLink>
               </li>
               <li>
-                <NavLink className="flex gap-2">
+                <NavLink to={routes.error} className="flex gap-2">
                   <Chat />
                   Chat
                 </NavLink>
               </li>
               <li>
-                <NavLink className="flex gap-2">
+                <NavLink to={routes.error} className="flex gap-2">
                   <Alert />
                   Notificaciones
                 </NavLink>
