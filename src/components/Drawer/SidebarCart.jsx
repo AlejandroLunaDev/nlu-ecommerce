@@ -28,28 +28,28 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
   };
 
   return (
-    <div className="w-96 p-2 h-full">
+    <section className="w-96 p-2 h-full">
       <header className='border-b flex justify-between px-4 '>
         <h3 className='font-bold'>Mi Carrito</h3>
-        <button className='text-xl' onClick={() => setOpen(false)}>
+        <button className='text-xl ' onClick={() => setOpen(false)}>
           <AiOutlineClose />
         </button>
       </header>
       {cart.length > 0 ? (
-        <div>
+        <div className='mt-4'>
           <ul className='overflow-y-auto max-h-[450px] mb-5'>
             {cart.map((item, index) => (
-              <li className='flex' key={index}>
-                <div>
-                  <button onClick={() => handleRemoveItem(item)}>
+              <li className='flex gap-6' key={index}>
+                <div className='flex gap-1'>
+                  <button className='border border-black rounded-full mt-4 p-1 h-6 w-6 flex items-center justify-center' onClick={() => handleRemoveItem(item)}>
                   <AiOutlineClose />
                   </button>
-                <img className='h-16' src={item.imagen} alt={item.nombre} />
+                <img className=' h-28' src={item.imagen} alt={item.nombre} />
                 </div>
                 <div>
                   <div>
                   <span>{item.nombre}</span>
-                  <p>${item.precio}</p>
+                  <p className='mb-3'>${item.precio}</p>
                   <ItemCount
                     product={item}
                     quantity={item.quantity}
@@ -88,6 +88,6 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
           <p className="text-center my-4">Tu carrito se encuentra vacío.</p>
         </section>
       )}
-    </div>
+    </section>
   );
 };
