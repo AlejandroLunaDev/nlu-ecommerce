@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 
   export function Item({product}) {
-const {count,setCount, products} = useContext(AppContext)
-console.log(product.firestoreId)
+const {count,setCount} = useContext(AppContext)
+
 const handleAddClick = () => {
   setCount(count + 1); 
 };
@@ -19,10 +19,7 @@ const handleAddClick = () => {
       <header className="flex justify-center border-b border-b-[#61005D] ">
         <img className="mb-2 h-24" src={product.imagen} alt={product.nombre} />
       </header>
-  
-
     <h3 className=" text-sm">{product.nombre}</h3>
-   
     <p className=" font-medium">$ {product.precio}</p>
     </Link>
     <div className="flex justify-center mt-6">

@@ -1,13 +1,15 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
-import { Hambuerguer } from "../icons/Hambuerguer";
-import categoriaData from "../Ui/InputSearch/categorias.json";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useContext } from 'react';
+import { Hambuerguer } from '../icons/Hambuerguer';
+import categoriaData from '../Ui/InputSearch/categorias.json';
+import { NavLink } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
+import {useFilter} from '../../hook/useFilter'; 
 
-
-export default function NavCategorias({ handleCategoryChange }) {
+export default function NavCategorias() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const { setProducts } = useContext(AppContext);
+
+  useFilter(setProducts); 
 
   const handleMouseEnter = () => {
     setIsMenuOpen(true);
@@ -17,15 +19,9 @@ export default function NavCategorias({ handleCategoryChange }) {
     setIsMenuOpen(false);
   };
 
-  const handleCategoryClick = async (categoria) => {
-    if (categoria && categoria.name) {
-      navigate(`/categorias/${categoria.name.toLowerCase()}`); 
-      handleCategoryChange(categoria.name); 
-    } else {
-      console.error('Invalid category:', categoria);
-    }
+  const handleCategoryClick = async () => {
+   
   };
-  
 
   return (
     <section>
@@ -39,7 +35,7 @@ export default function NavCategorias({ handleCategoryChange }) {
         >
           {categoriaData.categorias.map((categoria, index) => (
             <NavLink
-            to={`/categorias/${categoria.name.toLowerCase()}`} 
+              to={`/categoria/${categoria.name.toLowerCase()}`}
               key={index}
               onClick={() => handleCategoryClick(categoria.name)}
             >

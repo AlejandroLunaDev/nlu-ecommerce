@@ -7,8 +7,8 @@ export function ItemDetail({item}) {
 
   return (
     <article className="">
-      <header className="">
-        <img className=" h-32" src={item?.imagen} alt={item?.nombre} />
+      <header className=" ">
+        <img className=" h-14" src={item?.imagen} alt={item?.nombre} />
       </header>
       <div>
       <h3 className="">{item?.nombre}</h3>

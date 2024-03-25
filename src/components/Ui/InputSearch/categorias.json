@@ -1,10 +1,8 @@
 {
     "categorias" :[
-        {"name": "Ropa"},
+  
         {"name": "Celulares"},
-        {"name": "Computación"},
-        {"name": "Moda y Belleza"},
-        {"name": "Autos"},
-        {"name": "Juguetes"}
+        {"name": "Computacion"}
+
       ]
 }

@@ -7,6 +7,7 @@ import NavCategorias from "../components/navCategorias/NavCategorias";
 import { AppContext } from "../context/AppContext";
 import { useContext } from "react";
 
+
 export function Navbar() {
  const {  setFilterText } = useContext(AppContext);
 
