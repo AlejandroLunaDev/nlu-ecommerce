@@ -18,7 +18,7 @@ export default function CardWidget() {
         {count}
       </div>
       <Drawer open={open} anchor="right" onClose={() => setOpen(false)}>
-        <SidebarCart />
+        <SidebarCart isOpen={open} setOpen={setOpen}  />
       </Drawer>
     </article>
   );

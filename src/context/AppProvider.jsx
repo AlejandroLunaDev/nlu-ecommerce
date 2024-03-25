@@ -42,6 +42,17 @@ export function AppProvider({ children }) {
   };
   
 
+  const removeProductFromCart = (productToRemove) => {
+    const updatedCart = cart.filter(item => item.firestoreId !== productToRemove.firestoreId);
+    setCart(updatedCart);
+    setCount(prevCount => prevCount - productToRemove.quantity); // Decrementar contador total
+  };
+
+
+  const removeAllProductFromCart = (productToRemove) => {
+    setCart([])
+    setCount(0)
+  };
   return (
     <AppContext.Provider
       value={{
@@ -54,7 +65,9 @@ export function AppProvider({ children }) {
         cart,
         setCart,
         addToCart,
-        onRemoveCart
+        onRemoveCart,
+        removeProductFromCart,
+        removeAllProductFromCart
       }}
     >
       {children}
