@@ -23,6 +23,9 @@ export function ItemDetailContainer() {
 
 
   return (
-    <ItemDetail products={item} />
+    <section className=" h-dvh flex items-center justify-center">
+
+      <ItemDetail products={item} />
+    </section>
   );
 }

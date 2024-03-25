@@ -23,8 +23,8 @@ export function Navbar() {
 
   return (
     <>
-      <header className="w-full border-b-[1px] border-[#61005D]">
-        <nav className="flex items-center p-2 gap-10">
+      <header className=" w-full border-b-[1px] border-[#61005D]">
+        <nav className="flex items-center p-2 gap-10 " >
           <section className="flex items-center gap-3">
             <NavLink to={routes.home} onClick={handleLogoClick}>
               <Nolouso />
