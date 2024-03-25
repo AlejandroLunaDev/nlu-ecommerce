@@ -45,7 +45,7 @@ export function InputSearch() {
         type="text"
         placeholder={`Buscar "${text}"`}
         value={searchValue}
-        className="border border-gray-500 focus:outline-[#61005D] px-4 py-1 w-80 rounded-md"
+        className="border border-gray-500 focus:outline-[#61005D] px-4 py-1  w-44 md:w-80  rounded-md"
         onKeyDown={handleKeyDown}
         onChange={handleInputChange}
       />

@@ -24,7 +24,7 @@ export default function NavCategorias() {
   };
 
   return (
-    <section>
+    <section className='hidden md:block'>
       <button onMouseEnter={handleMouseEnter}>
         <Hambuerguer />
       </button>
