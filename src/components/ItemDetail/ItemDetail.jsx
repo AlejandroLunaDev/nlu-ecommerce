@@ -1,9 +1,9 @@
 import { AddToCartButton } from "../Ui/Button/AddToCartButton";
 import { useContext } from "react";
-import { AppContext } from "@/context/AppContext";
+import { CartContext } from "@/context/CartContext";
 
 export function ItemDetail({ products }) {
-  const { addToCart } = useContext(AppContext);
+  const { addToCart } = useContext(CartContext);
 
   return (
     <section className="flex gap-4">

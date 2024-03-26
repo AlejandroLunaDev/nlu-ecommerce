@@ -2,14 +2,14 @@ import { NavLink, Outlet } from "react-router-dom";
 import { Alert, Box, Chat, Nolouso } from "../components";
 import { routes } from "../routes/routes";
 import { InputSearch } from "../components/Ui/InputSearch/InputSearch";
-import CardWidget from "../components/Ui/CardWidget/CardWidget";
+import {CartWidget} from "../components/Ui/CartWidget/CartWidget";
 import NavCategorias from "../components/navCategorias/NavCategorias";
-import { AppContext } from "../context/AppContext";
+import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 
 
 export function Navbar() {
- const {  setFilterText } = useContext(AppContext);
+ const {  setFilterText } = useContext(CartContext);
 
  
   const handleCategoryChange = (categoria) => {
@@ -54,7 +54,7 @@ export function Navbar() {
               </li>
             </ul>
           </section>
-          <CardWidget />
+          <CartWidget />
         </nav>
       </header>
       <Outlet />

@@ -1,9 +1,9 @@
 import { doc, getDoc } from "firebase/firestore";
 import { ItemDetail } from "../ItemDetail/ItemDetail";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { db } from "../../service/firebase/firebase";
-import { AppContext } from "../../context/AppContext";
+
 
 export function ItemDetailContainer() {
   const [item, setItem] = useState(null)

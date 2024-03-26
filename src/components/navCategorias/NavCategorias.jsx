@@ -2,12 +2,12 @@ import { useState, useContext } from 'react';
 import { Hambuerguer } from '../icons/Hambuerguer';
 import categoriaData from '../Ui/InputSearch/categorias.json';
 import { NavLink } from 'react-router-dom';
-import { AppContext } from '../../context/AppContext';
+import { CartContext } from '../../context/CartContext';
 import {useFilter} from '../../hook/useFilter'; 
 
 export default function NavCategorias() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { setProducts } = useContext(AppContext);
+  const { setProducts } = useContext(CartContext);
 
   useFilter(setProducts); 
 

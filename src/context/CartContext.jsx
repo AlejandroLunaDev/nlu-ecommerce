@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { AppContext } from "./AppContext";
+import { createContext } from "react";
 
+export const CartContext = createContext()
 
-export function AppProvider({ children }) {
-  // GLOBAL CONTEXT //
+export function CartProvider({ children }) {
   const [count, setCount] = useState(0);
   const [filterText, setFilterText] = useState("");
   const [products, setProducts] = useState([]);
@@ -33,11 +33,11 @@ export function AppProvider({ children }) {
     if (productIndex !== -1) {
       updatedCart[productIndex].quantity -= 1;
       if (updatedCart[productIndex].quantity === 0) {
-        // Si la cantidad del producto es cero, eliminar el producto del carrito
+        
         updatedCart.splice(productIndex, 1);
       }
       setCart(updatedCart);
-      setCount((prevCount) => prevCount - 1); // Decrementar contador total
+      setCount((prevCount) => prevCount - 1); 
     }
   };
   
@@ -45,16 +45,16 @@ export function AppProvider({ children }) {
   const removeProductFromCart = (productToRemove) => {
     const updatedCart = cart.filter(item => item.firestoreId !== productToRemove.firestoreId);
     setCart(updatedCart);
-    setCount(prevCount => prevCount - productToRemove.quantity); // Decrementar contador total
+    setCount(prevCount => prevCount - productToRemove.quantity); 
   };
 
 
-  const removeAllProductFromCart = (productToRemove) => {
+  const clearCart = (productToRemove) => {
     setCart([])
     setCount(0)
   };
   return (
-    <AppContext.Provider
+    <CartContext.Provider
       value={{
         count,
         setCount,
@@ -67,10 +67,10 @@ export function AppProvider({ children }) {
         addToCart,
         onRemoveCart,
         removeProductFromCart,
-        removeAllProductFromCart
+        clearCart
       }}
     >
       {children}
-    </AppContext.Provider>
+    </CartContext.Provider>
   );
 }

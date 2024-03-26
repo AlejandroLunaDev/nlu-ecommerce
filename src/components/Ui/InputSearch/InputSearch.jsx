@@ -4,10 +4,10 @@ import { IoIosSearch } from "react-icons/io";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFilter } from "@/hook/useFilter"; 
-import { AppContext } from "../../../context/AppContext";
+import { CartContext } from "../../../context/CartContext";
 
 export function InputSearch() {
-  const { setProducts } = useContext(AppContext);   
+  const { setProducts } = useContext(CartContext);   
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
 

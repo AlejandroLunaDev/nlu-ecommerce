@@ -1,11 +1,11 @@
 import { Cart } from "@/components/icons/Cart";
-import { AppContext } from "../../../context/AppContext";
+import { CartContext } from "../../../context/CartContext";
 import { useContext, useState } from "react";
 import {SidebarCart} from "../../Drawer/SidebarCart";
 import { Drawer } from "@mui/material";
 
-export default function CardWidget() {
-  const { count } = useContext(AppContext);
+export function CartWidget() {
+  const { count } = useContext(CartContext);
 
   const [open, setOpen] = useState(false);
 

@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import { AppContext } from '@/context/AppContext';
+import { CartContext } from '@/context/CartContext';
 import { ItemCount } from '../Ui/ItemCount/ItemCount';
 import { CheckOutButton } from '../Ui/Button/CheckOutButton';
 import { AiOutlineClose } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import {Cart} from '../icons/Cart'
 import { useNavigate } from "react-router"
+import { Link } from 'react-router-dom';
 
 export const SidebarCart = ({ isOpen, setOpen }) => {
-  const { cart, addToCart, onRemoveCart,removeProductFromCart,removeAllProductFromCart } = useContext(AppContext);
+  const { cart, addToCart, onRemoveCart,removeProductFromCart,clearCart } = useContext(CartContext);
   const navigate = useNavigate()
   const subtotal = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
   const descuento = 0;
@@ -23,9 +24,7 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
     setOpen(false) 
   };
 
-  const handleRemoveCartAll = () => {
-    removeAllProductFromCart()
-  };
+
 
   return (
     <section className="w-96 p-2 h-full">
@@ -36,9 +35,11 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
         </button>
       </header>
       {cart.length > 0 ? (
+   
         <div className='mt-4'>
           <ul className='overflow-y-auto max-h-[450px] mb-5'>
             {cart.map((item, index) => (
+              
               <li className='flex gap-6' key={index}>
                 <div className='flex gap-1'>
                   <button className='border border-black rounded-full mt-4 p-1 h-6 w-6 flex items-center justify-center' onClick={() => handleRemoveItem(item)}>
@@ -77,7 +78,7 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
             <CheckOutButton text={'Comprar Ahora'} onClick={handleCheckout} />
           </div>
           <div className='px-2 mt-7'>
-            <button className='w-full flex justify-center' onClick={removeAllProductFromCart}>
+            <button className='w-full flex justify-center' onClick={clearCart}>
               <BsTrash className=' w-8 h-8' />
             </button>
           </div>

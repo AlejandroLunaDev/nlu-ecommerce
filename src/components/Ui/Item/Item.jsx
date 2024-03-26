@@ -1,12 +1,12 @@
 
 import { useContext } from "react";
-import { AppContext } from "../../../context/AppContext";
+import { CartContext } from "../../../context/CartContext";
 import { Link } from 'react-router-dom';
 import { AddToCartButton } from "../Button/AddToCartButton";
 
 
   export function Item({product}) {
-const {addToCart} = useContext(AppContext)
+const {addToCart} = useContext(CartContext)
 
 
   return (
