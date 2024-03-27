@@ -15,7 +15,6 @@ export function Footer() {
       <article>
         <h1 className="text-lg font-semibold">Seguinos</h1>
         <div className="flex gap-3 mt-3">
-          <SlSocialInstagram className={'social-icon'} />
           <NavLink
             to={"https://github.com/AlejandroLunaDev/nlu-ecommerce"}
             target="_blank"
@@ -23,14 +22,15 @@ export function Footer() {
           >
             <SlSocialGithub />
           </NavLink>
-          <SlSocialFacebook className={'social-icon'} />
           <NavLink
-            to={"www.linkedin.com/in/alejandro-luna-dev"}
+            to={"https://linkedin.com/in/alejandro-luna-dev"}
             target="_blank"
             className={'social-icon'}
           >
             <SlSocialLinkedin />
           </NavLink>
+          <SlSocialInstagram className={'social-icon'} />
+          <SlSocialFacebook className={'social-icon'} />
         </div>
       </article>
       <article>
