@@ -23,7 +23,7 @@ export const CheckOut = () => {
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
 
-    // Basic validation (can be improved)
+ 
     setIsValid(formData.nombre !== '' && formData.email !== '' && formData.telefono !== '');
   };
 
@@ -42,6 +42,7 @@ const FinalizarPedido = () => {
     
   }
 console.log(pedido)
+
 
 }
 
@@ -116,6 +117,7 @@ console.log(pedido)
               <span>${total}</span>
             </div>
 
+         {/* aca va el formulario */}
             <div className="mb-2">
               {
                 !isValid && (
@@ -156,7 +158,7 @@ console.log(pedido)
               </div>
 
 
-              <div onClick={isValid ? FinalizarPedido: undefined}>
+              <div onClick={isValid ? FinalizarPedido && clearCart: undefined}>
               <PurchaseButton text={'Finalizar Compra'} disabled={!isValid} isValid={isValid} />
             </div>           
              <Link to={routes.home} className='text-center'>
