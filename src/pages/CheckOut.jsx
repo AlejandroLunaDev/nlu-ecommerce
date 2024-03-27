@@ -54,7 +54,7 @@ console.log(pedido)
         <h3 className='font-bold text-xl'>Mi Carrito</h3>
       </header>
       {cart.length > 0 ? (
-        <div className='mt-4 flex gap-8 '>
+        <div className='mt-4 flex-none md:flex gap-8 '>
           <table className="w-2/3 border border-[#61005D]  max-h-64">
             <thead className='border border-[#61005D] '>
               <tr>
@@ -102,21 +102,23 @@ console.log(pedido)
               ))}
             </tbody>
           </table>
-          <aside className='flex flex-col gap-5 w-1/3 p-5'>
-            <h1 className='text-xl'>Resumen de compra</h1>
+          <aside className='flex md:flex-col gap-5 w-1/3 p-5'>
+            <article>
+            <h1 className='text-sm md:text-xl'>Resumen de compra</h1>
             <div className='flex justify-between'>
-              <p>Subtotal</p>
+              <p className='text-sm md:text-md'>Subtotal</p>
               <span>${subtotal}</span>
             </div>
             <div className='flex justify-between'>
-              <p>Descuentos</p>
+              <p className='text-sm md:text-md'>Descuentos</p>
               <span>-${descuento}</span>
             </div>
             <div className='flex justify-between'>
               <p className='font-bold'>Total</p>
               <span>${total}</span>
             </div>
-
+            </article>
+            <article className=''>
          {/* aca va el formulario */}
             <div className="mb-2">
               {
@@ -134,7 +136,7 @@ console.log(pedido)
                   name="nombre"
                   value={formData.nombre}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md mb-2 w-full"
+                  className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
                 />
                 <label htmlFor="email">Email:</label>
                 <input
@@ -143,7 +145,7 @@ console.log(pedido)
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md mb-2 w-full"
+                  className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
                 />
                   <label htmlFor="telefono">Teléfono:</label>
                 <input
@@ -152,18 +154,21 @@ console.log(pedido)
                   name="telefono"
                   value={formData.telefono}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 rounded-md mb-2 w-full"
+                  className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
                 />
               </form>
-              </div>
-
-
+            </div>            
               <div onClick={isValid ? FinalizarPedido && clearCart: undefined}>
               <PurchaseButton text={'Finalizar Compra'} disabled={!isValid} isValid={isValid} />
-            </div>           
-             <Link to={routes.home} className='text-center'>
-              <span className='font-semibold underline'>Seguir Comprando</span>
-            </Link>
+            </div>          
+            <div className='text-center mt-3'>       
+           <Link to={routes.home}>
+              <span className='font-semibold underline '>Seguir Comprando</span>
+            </Link>  
+              </div> 
+            </article>  
+
+
           </aside>
         </div>
       ) : (

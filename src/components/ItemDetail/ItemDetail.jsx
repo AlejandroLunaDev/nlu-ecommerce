@@ -3,14 +3,26 @@ import { useContext } from "react";
 import { CartContext } from "@/context/CartContext";
 
 export function ItemDetail({ products }) {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart,cart } = useContext(CartContext);
+console.log(cart)
+
+  const handleAddToCart = () => {
+    // Verificar si el producto ya está en el carrito
+    const isProductInCart = cart.some(item => item.firestoreId === products?.firestoreId);
+    if (!isProductInCart) {
+      addToCart(products);
+    } else {
+      console.log("El producto ya está en el carrito.");
+      // Puedes mostrar una notificación o mensaje al usuario indicando que el producto ya está en el carrito
+    }
+  };
 
   return (
-    <section className="flex gap-4">
+    <section className="flex-none md:flex gap-4">
       <article className="">
         <header className=" ">
           <img
-            className=" h-[400px]"
+            className=" h-44 md:h-[400px]"
             src={products?.imagen}
             alt={products?.nombre}
           />
@@ -29,11 +41,11 @@ export function ItemDetail({ products }) {
           <h3 className="font-bold">Categoria</h3>
           <p>{products?.categoria}</p>
           <h3 className="font-bold">Descripción</h3>
-          <p>{products?.descripcion}</p>
+          <p className="text-[11px] md:text-sm">{products?.descripcion}</p>
         </article>
         <div className=" w-60 mt-8">
           <AddToCartButton
-            onClick={() => addToCart(products)}
+            onClick={handleAddToCart}
             text={"Agregar"}
           />
         </div>
