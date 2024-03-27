@@ -10,7 +10,7 @@ export function ItemDetail({ products }) {
       <article className="">
         <header className=" ">
           <img
-            className=" h-[500px]"
+            className=" h-[400px]"
             src={products?.imagen}
             alt={products?.nombre}
           />

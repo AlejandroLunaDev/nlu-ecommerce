@@ -41,11 +41,14 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
             {cart.map((item, index) => (
               
               <li className='flex gap-6' key={index}>
+
                 <div className='flex gap-1'>
                   <button className='border border-black rounded-full mt-4 p-1 h-6 w-6 flex items-center justify-center' onClick={() => handleRemoveItem(item)}>
                   <AiOutlineClose />
                   </button>
-                <img className=' h-28' src={item.imagen} alt={item.nombre} />
+                  <Link to={`/product/${item.firestoreId}`} onClick={() => setOpen(false)} className=' w-36'>
+                    <img className=' h-28' src={item.imagen} alt={item.nombre} />
+                 </Link>
                 </div>
                 <div>
                   <div>

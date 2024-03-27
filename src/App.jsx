@@ -6,6 +6,7 @@ export function App() {
    <CartProvider>
      <AppRoutes />
    </CartProvider> 
+    
     ) 
 }
 
