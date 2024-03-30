@@ -3,7 +3,7 @@ import { Alert, Box, Chat, Nolouso } from "../components";
 import { routes } from "../routes/routes";
 import { InputSearch } from "../components/Ui/InputSearch/InputSearch";
 import {CartWidget} from "../components/Ui/CartWidget/CartWidget";
-import NavCategorias from "../components/navCategorias/NavCategorias";
+import {NavCategorias} from "../components/navCategorias/NavCategorias";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 

@@ -4,7 +4,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
-    const [totalQuantity, setTotalQuantity] = useState(0); // Estado de la cantidad total
+    const [totalQuantity, setTotalQuantity] = useState(0); 
 
     const addItem = (productToAdd) => {
         const { id, name, price, quantity, stock } = productToAdd;
@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
             cart,
             addItem,
             addQuantity,
-            removeQuantity, // Agregar la nueva función addQuantity al contexto
+            removeQuantity,
             totalQuantity,
             setTotalQuantity,
             total,

@@ -1,9 +1,11 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
+import { Add, Remove } from "@/components";
 
 const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
   const [count, setCount] = useState(initial);
+
   const increment = () => {
     if (count < stock) {
       setCount((prevCount) => prevCount + 1);
@@ -16,10 +18,19 @@ const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
 
   return (
     <div className="flex justify-between">
-      <button onClick={decrement}>-</button>
-      <p>{count}</p>
-      <button onClick={increment}>+</button>
-      <button onClick={() => onAdd(count)}>Agregar al carrito</button>
+      <button className="border rounded-sm flex items-center justify-center" onClick={decrement}>
+        <Remove />
+      </button>
+      <p className='text-[13px] border rounded-sm px-3 flex items-center'>{count}</p>
+      <button className="border rounded-sm flex items-center justify-center" onClick={increment}>
+        <Add />
+      </button>
+      <button
+        className="bg-[#61005D] rounded text-center text-white py-1 px-2"
+        onClick={() => onAdd(count)}
+      >
+        Agregar al carrito
+      </button>
     </div>
   );
 };
@@ -44,7 +55,7 @@ export function ItemDetail({
       price,
       quantity,
       img,
-      stock
+      stock,
     };
 
     addItem(objProductToAdd);
@@ -76,9 +87,9 @@ export function ItemDetail({
           {!isInCart(id) ? (
             <ItemCount onAdd={handleOnAdd} stock={stock} />
           ) : (
-            <>
-              <Link to="/cart">Finalizar compra</Link>
-            </>
+            <div className="bg-[#61005D] rounded text-center text-white py-1">
+              <Link to="/CheckOut">Finalizar Compra</Link>
+            </div>
           )}
         </div>
       </aside>

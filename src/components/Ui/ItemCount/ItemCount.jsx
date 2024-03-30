@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { Add } from '@/components/icons/Add';
-import { Remove } from '@/components/icons/Remove';
+import { Add,Remove } from '@/components';
 import { CartContext } from '@/context/CartContext';
 
 export function ItemCount({ productId, stock }) {

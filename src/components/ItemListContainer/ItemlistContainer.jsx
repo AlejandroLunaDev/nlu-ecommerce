@@ -11,7 +11,6 @@ export function ItemlistContainer({ greeting }) {
   const { categoryId } = useParams()
   const asyncFunction = () =>  getProducts(categoryId)
   const { data: products, loading, error } = useAsync(asyncFunction, [categoryId])
-
   if(loading) {
     return <h1>Se estan cargando los productos...</h1>
 }

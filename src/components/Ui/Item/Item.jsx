@@ -4,7 +4,7 @@ import { Tooltip } from '@mui/material';
 
 
 
-  export function Item({id,img,name,price}) {
+  export function Item({id,img,name,price,category}) {
 
 
 
