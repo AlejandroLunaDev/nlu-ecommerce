@@ -48,7 +48,7 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
                   <div>
                     <span>{item.name}</span>
                     <p className='mb-3'>${item.price}</p>
-                    <ItemCount productId={item.id} stock={item.stock} /> {/* Pasar productId y stock al componente ItemCount */}
+                    <ItemCount productId={item.id} stock={item.stock} /> 
                   </div>
                 </div>
               </li>

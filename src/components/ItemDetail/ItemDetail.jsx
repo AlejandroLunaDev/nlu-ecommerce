@@ -88,7 +88,7 @@ export function ItemDetail({
             <ItemCount onAdd={handleOnAdd} stock={stock} />
           ) : (
             <div className="bg-[#61005D] rounded text-center text-white py-1">
-              <Link to="/CheckOut">Finalizar Compra</Link>
+              <Link to="/">Seguir Comprando</Link>
             </div>
           )}
         </div>

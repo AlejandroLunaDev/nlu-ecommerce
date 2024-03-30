@@ -8,10 +8,10 @@ import { routes } from '@/routes/routes';
 import { PurchaseButton } from '../components/Ui/Button/PurchaseButton';
 
 export const CheckOut = () => {
-  const { cart, addToCart, onRemoveCart, removeProductFromCart, clearCart } = useContext(CartContext);
-  const subtotal = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
+  const { cart, removeItem, clearCart,total } = useContext(CartContext);
+  const subtotal = total.toFixed(2);
   const descuento = 0;
-  const total = subtotal - descuento;
+  const totalf = (subtotal - descuento).toFixed(2);
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -28,7 +28,7 @@ export const CheckOut = () => {
   };
 
   const handleRemoveItem = (item) => {
-    removeProductFromCart(item);
+    removeItem(item.id);
   };
   
 
@@ -72,27 +72,22 @@ console.log(pedido)
                 <tr key={index}>
                   <td className="items-center w-36 ">
                     <Link to={`/product/${item.firestoreId}`} className='flex justify-center mt-2 '>
-                      <img className='h-20' src={item.imagen} alt={item.nombre} />
+                      <img className='h-20' src={item.img} alt={item.name} />
                     </Link>
                   </td>
                   <td className='text-center w-74'>
-                    <span>{item.nombre}</span>
+                    <span>{item.name}</span>
 
                   </td>
                   <td className='text-center'>
-                    ${item.precio}
+                    ${item.price}
                   </td>
                   <td>
                     <div className='flex justify-center'>
-                    <ItemCount
-                      product={item}
-                      quantity={item.quantity}
-                      onAddCart={() => addToCart(item)}
-                      onRemoveCart={() => onRemoveCart(item)}
-                    />
+                    <ItemCount productId={item.id} stock={item.stock} /> 
                     </div>
                   </td>
-                  <td className='text-center'>${(item.precio * item.quantity).toFixed(2)}</td>
+                  <td className='text-center'>${(item.price * item.quantity).toFixed(2)}</td>
                   <td>
                     <button className='border border-black rounded-full p-1 h-6 w-6 flex items-center justify-center' onClick={() => handleRemoveItem(item)}>
                       <AiOutlineClose />
@@ -124,7 +119,7 @@ console.log(pedido)
               {
                 !isValid && (
                   <p className="text-red-500 text-sm mb-2">
-                    Debe completar sus datos para finalizar la compra
+                    Debe completar tus datos para finalizar la compra
                   </p>
                 )
               }
