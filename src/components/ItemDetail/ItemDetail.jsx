@@ -2,9 +2,25 @@ import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { Add, Remove } from "@/components";
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
   const [count, setCount] = useState(initial);
+
+  const mostrarAlerta =()=>{
+    Toastify({
+
+      text: "Producto Agregado al Carrito",
+      
+      duration: 3000,
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d)",
+      },
+      
+      }).showToast();
+
+  }
 
   const increment = () => {
     if (count < stock) {
@@ -27,7 +43,10 @@ const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
       </button>
       <button
         className="bg-[#61005D] rounded text-center text-white py-1 px-2"
-        onClick={() => onAdd(count)}
+        onClick={() => {
+          onAdd(count);
+          mostrarAlerta(); 
+        }}
       >
         Agregar al carrito
       </button>

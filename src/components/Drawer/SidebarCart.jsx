@@ -7,6 +7,8 @@ import { BsTrash } from "react-icons/bs";
 import {Cart} from '../icons/Cart'
 import { useNavigate } from "react-router"
 import { Link } from 'react-router-dom';
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 export const SidebarCart = ({ isOpen, setOpen }) => {
   const { cart, clearCart, removeItem, total} = useContext(CartContext);
@@ -14,6 +16,21 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
   const subtotal = total.toFixed(2);
   const descuento = 0;
   const totalf = subtotal - descuento;
+
+
+const mostrarAlerta = ()=> {
+  Toastify({
+
+    text: "Producto Eliminado",
+    
+    duration: 2000,
+    style: {
+      background: "red",
+    },
+    
+    }).showToast();
+}
+
   const handleRemoveItem = (item) => {
     removeItem(item.id);
   };
@@ -37,7 +54,9 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
             {cart.map((item) => (
               <li className='flex gap-6' key={item.id}>
                 <div className='flex gap-1'>
-                  <button className='border border-black rounded-full mt-4 p-1 h-6 w-6 flex items-center justify-center' onClick={() => handleRemoveItem(item)}>
+                  <button className='border border-black rounded-full mt-4 p-1 h-6 w-6 flex items-center justify-center' onClick={() => {handleRemoveItem(item);
+                  mostrarAlerta();
+                  }}>
                     <AiOutlineClose />
                   </button>
                   <Link to={`/product/${item.id}`} onClick={() => setOpen(false)} className=' w-36'>
