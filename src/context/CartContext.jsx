@@ -1,75 +1,86 @@
-import { useState } from "react";
-import { createContext } from "react";
+import React, { useState, createContext, useEffect } from 'react';
 
 export const CartContext = createContext();
 
-export function CartProvider({ children }) {
-  const [count, setCount] = useState(0);
-  const [filterText, setFilterText] = useState("");
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+export const CartProvider = ({ children }) => {
+    const [cart, setCart] = useState([]);
+    const [totalQuantity, setTotalQuantity] = useState(0); // Estado de la cantidad total
 
-  const addToCart = (productToAdd) => {
-    const productIndex = cart.findIndex(
-      (item) => item.firestoreId === productToAdd.firestoreId
-    );
+    const addItem = (productToAdd) => {
+        const { id, name, price, quantity, stock } = productToAdd;
+        const img = productToAdd.img || '';
+        if (!isInCart(productToAdd.id)) {
+            setCart(prev => [...prev, { id, name, price, quantity, img, stock }]);
+        } else {
+            console.error('El producto ya está agregado');
+        }
+    };
 
-    if (productIndex !== -1) {
-      const updatedCart = [...cart];
-      updatedCart[productIndex].quantity += 1;
+    const addQuantity = (productId, quantityToAdd) => {
+        const productToUpdateIndex = cart.findIndex(item => item.id === productId);
+        if (productToUpdateIndex !== -1) {
+            const updatedCart = [...cart];
+            updatedCart[productToUpdateIndex].quantity += quantityToAdd;
+            setCart(updatedCart);
+            setTotalQuantity(prevTotalQuantity => prevTotalQuantity + quantityToAdd);
+        } else {
+            console.error('El producto no está en el carrito');
+        }
+    };
+
+    const removeQuantity = (id) => {
+      const updatedCart = cart.map(item => {
+          if (item.id === id && item.quantity > 0) {
+              return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+      });
       setCart(updatedCart);
-    } else {
-      setCart((prevCart) => [...prevCart, { ...productToAdd, quantity: 1 }]);
-    }
-    setCount((prevCount) => prevCount + 1);
   };
 
-  const onRemoveCart = (productToRemove) => {
-    const updatedCart = [...cart];
-    const productIndex = updatedCart.findIndex(
-      (item) => item.firestoreId === productToRemove.firestoreId
+    const isInCart = (id) => {
+        return cart.some(prod => prod.id === id);
+    };
+
+    const clearCart = () => {
+        setCart([]);
+    };
+
+    const removeItem = (id) => {
+        const updatedCart = cart.filter(prod => prod.id !== id);
+        setCart(updatedCart);
+    };
+
+    useEffect(() => {
+    
+        const updatedQuantity = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+        setTotalQuantity(updatedQuantity);
+    }, [cart]);
+
+    const getTotal = () => {
+        let acumulador = 0;
+        cart.forEach(prod => {
+            acumulador += prod.quantity * prod.price;
+        });
+        return acumulador;
+    };
+
+    const total = getTotal();
+
+    return (
+        <CartContext.Provider value={{
+            cart,
+            addItem,
+            addQuantity,
+            removeQuantity, // Agregar la nueva función addQuantity al contexto
+            totalQuantity,
+            setTotalQuantity,
+            total,
+            clearCart,
+            isInCart,
+            removeItem
+        }}>
+            {children}
+        </CartContext.Provider>
     );
-
-    if (productIndex !== -1) {
-      updatedCart[productIndex].quantity -= 1;
-      if (updatedCart[productIndex].quantity === 0) {
-        updatedCart.splice(productIndex, 1);
-      }
-      setCart(updatedCart);
-      setCount((prevCount) => prevCount - 1);
-    }
-  };
-
-  const removeProductFromCart = (productToRemove) => {
-    const updatedCart = cart.filter(
-      (item) => item.firestoreId !== productToRemove.firestoreId
-    );
-    setCart(updatedCart);
-    setCount((prevCount) => prevCount - productToRemove.quantity);
-  };
-
-  const clearCart = (productToRemove) => {
-    setCart([]);
-    setCount(0);
-  };
-  return (
-    <CartContext.Provider
-      value={{
-        count,
-        setCount,
-        filterText,
-        setFilterText,
-        products,
-        setProducts,
-        cart,
-        setCart,
-        addToCart,
-        onRemoveCart,
-        removeProductFromCart,
-        clearCart,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
-}
+};

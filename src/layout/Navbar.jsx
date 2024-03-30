@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink,Link, Outlet } from "react-router-dom";
 import { Alert, Box, Chat, Nolouso } from "../components";
 import { routes } from "../routes/routes";
 import { InputSearch } from "../components/Ui/InputSearch/InputSearch";
@@ -17,7 +17,6 @@ export function Navbar() {
   };
 
   const handleLogoClick = () => {
-    setFilterText("");
     document.querySelector(".border-gray-500").value = "";
   };
 
@@ -26,9 +25,9 @@ export function Navbar() {
       <header className=" w-full border-b-[1px] border-[#61005D]">
         <nav className="flex items-center p-2 gap-1 md:gap-10 " >
           <section className="flex items-center gap-0 md:gap-3">
-            <NavLink to={routes.home} onClick={handleLogoClick}>
+            <Link to={routes.home} onClick={handleLogoClick}>
               <Nolouso />
-            </NavLink>
+            </Link>
             <InputSearch />
             <NavCategorias handleCategoryChange={handleCategoryChange} />
           </section>

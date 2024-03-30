@@ -1,17 +1,16 @@
 import { useTypewriter } from "react-simple-typewriter";
 import categoriasData from "./categorias.json";
 import { IoIosSearch } from "react-icons/io";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFilter } from "@/hook/useFilter"; 
 import { CartContext } from "../../../context/CartContext";
 
 export function InputSearch() {
-  const { setProducts } = useContext(CartContext);   
+ 
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
 
-  useFilter(setProducts); // Utiliza el hook useFilter para filtrar productos según la URL
+
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {

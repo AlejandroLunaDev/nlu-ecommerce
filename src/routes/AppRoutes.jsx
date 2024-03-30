@@ -16,7 +16,7 @@ export function AppRoutes() {
           <Route path="/home" element={<Home />} />
           <Route path="/categoria/:categoria" element={<ItemlistContainer limit={32} />} />
           <Route path={"/search/:categoria"} element={<ItemlistContainer limit={20} />} />
-          <Route path="/product/:firestoreId" element={<ItemDetailContainer />} />
+          <Route path="/product/:itemId" element={<ItemDetailContainer />} />
           <Route path="/CheckOut" element={<CheckOut />} />
         </Route>
         <Route path={routes.error} element={<Error404 />} />

@@ -1,14 +1,14 @@
-import { useContext } from "react";
-import { Item } from "../Ui/Item/Item";
-import { CartContext } from "../../context/CartContext";
 
-export function ItemList() {
-  const {products} = useContext(CartContext)
+import { Item } from "../Ui/Item/Item";
+
+export function ItemList({products}) {
   return (
     <section className="card-container gap-2">
-      {products.map((product) => (
-       <Item key={`${product.firestoreId}`} product={product} />
-      ))}
+          {
+                products?.map((product) => {
+                    return <Item key={product.id} {...product}/>
+                })
+            }
     </section>
   );
 }

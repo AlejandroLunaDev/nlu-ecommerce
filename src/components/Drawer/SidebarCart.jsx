@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '@/context/CartContext';
-import { ItemCount } from '../Ui/ItemCount/ItemCount';
+import { ItemCount } from '../Ui/ItemCount/ItemCount'; // Asegúrate de importar el componente correctamente
 import { CheckOutButton } from '../Ui/Button/CheckOutButton';
 import { AiOutlineClose } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
@@ -9,22 +9,19 @@ import { useNavigate } from "react-router"
 import { Link } from 'react-router-dom';
 
 export const SidebarCart = ({ isOpen, setOpen }) => {
-  const { cart, addToCart, onRemoveCart,removeProductFromCart,clearCart } = useContext(CartContext);
-  const navigate = useNavigate()
-  const subtotal = cart.reduce((acc, item) => acc + item.precio * item.quantity, 0).toFixed(2);
+  const { cart, clearCart, removeItem, total} = useContext(CartContext);
+  const navigate = useNavigate();
+  const subtotal = total.toFixed(2);
   const descuento = 0;
-  const total = subtotal - descuento;
-
+  const totalf = subtotal - descuento;
   const handleRemoveItem = (item) => {
-    removeProductFromCart(item)
+    removeItem(item.id);
   };
 
   const handleCheckout = () => {
     navigate('/CheckOut');
-    setOpen(false) 
+    setOpen(false);
   };
-
-
 
   return (
     <section className="w-96 p-2 h-full">
@@ -35,31 +32,23 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
         </button>
       </header>
       {cart.length > 0 ? (
-   
         <div className='mt-4'>
           <ul className='overflow-y-auto max-h-[450px] mb-5'>
-            {cart.map((item, index) => (
-              
-              <li className='flex gap-6' key={index}>
-
+            {cart.map((item) => (
+              <li className='flex gap-6' key={item.id}>
                 <div className='flex gap-1'>
                   <button className='border border-black rounded-full mt-4 p-1 h-6 w-6 flex items-center justify-center' onClick={() => handleRemoveItem(item)}>
-                  <AiOutlineClose />
+                    <AiOutlineClose />
                   </button>
-                  <Link to={`/product/${item.firestoreId}`} onClick={() => setOpen(false)} className=' w-36'>
-                    <img className=' h-28' src={item.imagen} alt={item.nombre} />
-                 </Link>
+                  <Link to={`/product/${item.id}`} onClick={() => setOpen(false)} className=' w-36'>
+                    <img className=' h-28' src={item.img} alt={item.name} />
+                  </Link>
                 </div>
                 <div>
                   <div>
-                  <span>{item.nombre}</span>
-                  <p className='mb-3'>${item.precio}</p>
-                  <ItemCount
-                    product={item}
-                    quantity={item.quantity}
-                    onAddCart={() => addToCart(item)}
-                    onRemoveCart={() => onRemoveCart(item)}
-                  />
+                    <span>{item.name}</span>
+                    <p className='mb-3'>${item.price}</p>
+                    <ItemCount productId={item.id} stock={item.stock} /> {/* Pasar productId y stock al componente ItemCount */}
                   </div>
                 </div>
               </li>
@@ -75,7 +64,7 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
           </div>
           <div className='flex justify-between'>
             <p className='font-bold'>Total</p>
-            <span>${total}</span> 
+            <span>${totalf}</span> 
           </div>
           <div className='px-2'>
             <CheckOutButton text={'Comprar Ahora'} onClick={handleCheckout} />
