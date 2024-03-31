@@ -13,7 +13,7 @@ const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
 
       text: "Producto Agregado al Carrito",
       
-      duration: 3000,
+      duration: 2000,
       style: {
         background: "linear-gradient(to right, #00b09b, #96c93d)",
       },

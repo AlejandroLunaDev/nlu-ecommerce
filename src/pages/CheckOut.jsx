@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 export const CheckOut = () => {
   const { cart, removeItem, clearCart, total } = useContext(CartContext);
   const subtotal = total.toFixed(2);
@@ -31,6 +32,12 @@ export const CheckOut = () => {
   const [orderId, setOrderId] = useState(null)
 
   const navigate = useNavigate();
+
+
+
+  
+
+
 
 const compraFinalizada = ()=> {
 
