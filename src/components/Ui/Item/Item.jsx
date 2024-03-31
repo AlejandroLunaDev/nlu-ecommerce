@@ -19,6 +19,7 @@ import { Tooltip } from '@mui/material';
       <div className='text-center'>
     <h3 className=" text-md">{name}</h3>
     <p className=" font-semibold">$ {price}</p>
+    <Link to={`/product/${id}`} className='hover:color-[#61005D] '>Ver detalle...</Link>
       </div>
     </Link>
       </Tooltip>

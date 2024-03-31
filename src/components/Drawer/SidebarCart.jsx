@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '@/context/CartContext';
-import { ItemCount } from '../Ui/ItemCount/ItemCount'; // Asegúrate de importar el componente correctamente
+import { ItemCount } from '../Ui/ItemCount/ItemCount'; 
 import { CheckOutButton } from '../Ui/Button/CheckOutButton';
 import { AiOutlineClose } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router"
 import { Link } from 'react-router-dom';
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
+import Swal from 'sweetalert2';
 
 export const SidebarCart = ({ isOpen, setOpen }) => {
   const { cart, clearCart, removeItem, total} = useContext(CartContext);
@@ -18,6 +19,33 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
   const totalf = subtotal - descuento;
 
 
+  const alertaDeleteCarrito = () => {
+    Swal.fire({
+      title: "Estas Seguro de Eliminar tu Carrito?",
+      text: "No podrás revertir esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        popup: 'alert-popup-class'
+      },
+      
+      position: 'center' 
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clearCart();
+        Swal.fire({
+          title: "Eliminado!",
+          text: "Tu carrito ah sido borrado",
+          icon: "success"
+        });
+      }
+    });
+  }
+      
 const mostrarAlerta = ()=> {
   Toastify({
 
@@ -41,7 +69,8 @@ const mostrarAlerta = ()=> {
   };
 
   return (
-    <section className="w-96 p-2 h-full">
+    
+    <section className="w-96 p-2 h-full carrito z-0">
       <header className='border-b flex justify-between px-4 '>
         <h3 className='font-bold'>Mi Carrito</h3>
         <button className='text-xl ' onClick={() => setOpen(false)}>
@@ -89,7 +118,7 @@ const mostrarAlerta = ()=> {
             <CheckOutButton text={'Comprar Ahora'} onClick={handleCheckout} />
           </div>
           <div className='px-2 mt-7'>
-            <button className='w-full flex justify-center' onClick={clearCart}>
+            <button className='w-full flex justify-center'  onClick={() => { alertaDeleteCarrito(); }}>
               <BsTrash className=' w-8 h-8' />
             </button>
           </div>

@@ -17,9 +17,11 @@ export function CartWidget() {
       <div className=" bg-[#61005D] text-white rounded-full text-center text-sm w-5 h-5">
       { totalQuantity }
       </div>
-      <Drawer open={open} anchor="right" onClose={() => setOpen(false)}>
+     
+      <Drawer  open={open} anchor="right" onClose={() => setOpen(false)}>
         <SidebarCart isOpen={open} setOpen={setOpen}  />
       </Drawer>
+ 
     </article>
   );
 }
