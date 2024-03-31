@@ -90,11 +90,11 @@ export function ItemDetail({
   return (
     <section className="flex-none md:flex gap-4">
       <article className="">
-        <header className=" ">
+      <header className="p-10">
           <img className=" h-44 md:h-[400px]" src={img} alt={name} />
-        </header>
+      </header>
       </article>
-      <aside className="border-l pl-8">
+      <aside className="md:border-l pl-8">
         <article>
           <header className="mb-10">
             <h3 className="font-semibold text-xl mb-2">{name}</h3>
