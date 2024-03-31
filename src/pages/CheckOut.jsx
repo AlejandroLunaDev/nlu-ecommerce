@@ -17,42 +17,32 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
-
-
+import { validateForm } from "../helper/validateForm";
 
 export const CheckOut = () => {
   const { cart, removeItem, clearCart, total } = useContext(CartContext);
   const subtotal = total.toFixed(2);
   const descuento = 0;
   const totalf = (subtotal - descuento).toFixed(2);
-  const [loading, setLoading] = useState(false)
-  const [orderId, setOrderId] = useState(null)
+  const [loading, setLoading] = useState(false);
+  const [orderId, setOrderId] = useState(null);
 
   const navigate = useNavigate();
 
-
-
-  
-
-
-
-const compraFinalizada = ()=> {
-
-  Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Compra Finalizada",
-    showConfirmButton: false,
-    timer: 2200
-  });
-}
-
-const backHome = ()=>{
-  navigate('/')
-}
+  const compraFinalizada = () => {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Compra Finalizada",
+      showConfirmButton: false,
+      timer: 2200,
+    });
+  };
+  const backHome = () => {
+    navigate("/");
+  };
 
   const [formData, setFormData] = useState({
     nombre: "",
@@ -60,14 +50,23 @@ const backHome = ()=>{
     telefono: "",
   });
   const [isValid, setIsValid] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [focusedField, setFocusedField] = useState(null);
 
+  const handleBlur = (event) => {
+    const { name, value } = event.target;
+    setFocusedField(name);
+
+    const { errors: fieldErrors } = validateForm({ [name]: value });
+    setFormErrors({ ...formErrors, [name]: fieldErrors[name] });
+  };
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-    setIsValid(
-      formData.nombre !== "" &&
-        formData.email !== "" &&
-        formData.telefono !== ""
-    );
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+
+    const { errors, isValid } = validateForm({ ...formData, [name]: value });
+    setFormErrors(errors);
+    setIsValid(isValid);
   };
 
   const handleRemoveItem = (item) => {
@@ -75,72 +74,84 @@ const backHome = ()=>{
   };
 
   const FinalizarPedido = async () => {
-    try {
-      setLoading(true)
-      const totalCompra = Number(total);
-      const objOrder = {
-        Cliente: formData,
-        productos: cart.map((item) => ({ ...item, cantidad: item.quantity })),
-        total: totalCompra,
-        date: Timestamp.fromDate(new Date()),
-      };
-      const batch = writeBatch(db)
-      const outOfStock = []
-      const ids = cart.map(prod => prod.id)
+    const { errors, isValid } = validateForm(formData);
+    setFormErrors(errors);
+    setIsValid(isValid);
 
-      const productsCollection = query(collection(db, 'products'), where(documentId(), 'in', ids))
+    if (isValid) {
+      try {
+        setLoading(true);
+        const totalCompra = Number(total);
+        const objOrder = {
+          Cliente: formData,
+          productos: cart.map((item) => ({ ...item, cantidad: item.quantity })),
+          total: totalCompra,
+          date: Timestamp.fromDate(new Date()),
+        };
 
-      const querySnapshot = await getDocs(productsCollection)
-      const { docs } = querySnapshot
+        const batch = writeBatch(db);
+        const outOfStock = [];
+        const ids = cart.map((prod) => prod.id);
 
-      docs.forEach(doc => {
-        const data = doc.data()
-        const stockDb = data.stock
+        const productsCollection = query(
+          collection(db, "products"),
+          where(documentId(), "in", ids)
+        );
 
-        const productAddedToCart = cart.find(prod => prod.id === doc.id)
-        const prodQuantity = productAddedToCart.quantity
+        const querySnapshot = await getDocs(productsCollection);
+        const { docs } = querySnapshot;
 
-        if(stockDb >= prodQuantity) {
-            batch.update(doc.ref, { stock: stockDb - prodQuantity })
+        docs.forEach((doc) => {
+          const data = doc.data();
+          const stockDb = data.stock;
+
+          const productAddedToCart = cart.find((prod) => prod.id === doc.id);
+          const prodQuantity = productAddedToCart.quantity;
+
+          if (stockDb >= prodQuantity) {
+            batch.update(doc.ref, { stock: stockDb - prodQuantity });
+          } else {
+            outOfStock.push({ id: doc.id, ...data });
+          }
+        });
+
+        if (outOfStock.length === 0) {
+          batch.commit();
+
+          const orderCollection = collection(db, "orders");
+          const { id } = await addDoc(orderCollection, objOrder);
+          compraFinalizada();
+          backHome();
+          clearCart();
+          setOrderId(id);
         } else {
-            outOfStock.push({ id: doc.id, ...data})
+          console.error("hay productos que no tienen stock disponible");
         }
-    })
-
-    if(outOfStock.length === 0) {
-      batch.commit()
-
-      const orderCollection = collection(db, 'orders')
-      const { id } = await addDoc(orderCollection, objOrder)
-      compraFinalizada()
-      backHome()
-      clearCart()
-      setOrderId(id)
-  } else {
-      console.error('hay productos que no tienen stock disponible')
-  }
-    } catch (error) {
-      console.error('Hubo un error en la generacion de la orden')
-  } finally {
-      setLoading(false)
-  }
+      } catch (error) {
+        console.error("Hubo un error en la generacion de la orden");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      console.log("El formulario no es válido");
+    }
   };
 
-  if(loading) {
-    return <h1>Su orden esta siendo generada...</h1>
-}
+  if (loading) {
+    return <h1>Su orden esta siendo generada...</h1>;
+  }
 
-if(orderId) {
-    return <h1>El id de su orden es: {orderId}</h1>
-}
+  if (orderId) {
+    return <h1>El id de su orden es: {orderId}</h1>;
+  }
   return (
-    <section className="p-2 h-dvh w-full">
+    <section className="p-2 h-dvh w-full flex-col items-center">
       <header className="flex gap-4 px-4 ">
         <Cart />
         <h3 className="font-bold text-xl">Mi Carrito</h3>
       </header>
       {cart.length > 0 ? (
-        <div className="mt-4 flex-none md:flex gap-8 ">
+        <div className="mt-4 gap-8 ">
           <table className="w-2/3 border border-[#61005D]  max-h-64">
             <thead className="border border-[#61005D] ">
               <tr>
@@ -187,7 +198,7 @@ if(orderId) {
               ))}
             </tbody>
           </table>
-          <aside className="flex md:flex-col gap-5 w-1/3 p-5">
+          <aside className=" md:flex-col gap-5 w-1/3 p-5">
             <article>
               <h1 className="text-sm md:text-xl">Resumen de compra</h1>
               <div className="flex justify-between">
@@ -208,7 +219,7 @@ if(orderId) {
               <div className="mb-2">
                 {!isValid && (
                   <p className="text-red-500 text-sm mb-2">
-                    Debe completar tus datos para finalizar la compra
+                    Se debe completar tus datos para finalizar la compra
                   </p>
                 )}
                 <form>
@@ -219,8 +230,14 @@ if(orderId) {
                     name="nombre"
                     value={formData.nombre}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
                   />
+                  {focusedField === "nombre" && formErrors.nombre && (
+                    <p className="text-red-500 text-sm mb-2">
+                      {formErrors.nombre}
+                    </p>
+                  )}{" "}
                   <label htmlFor="email">Email:</label>
                   <input
                     type="email"
@@ -228,8 +245,14 @@ if(orderId) {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
                   />
+                  {focusedField === "email" && formErrors.email && (
+                    <p className="text-red-500 text-sm mb-2">
+                      {formErrors.email}
+                    </p>
+                  )}{" "}
                   <label htmlFor="telefono">Teléfono:</label>
                   <input
                     type="tel"
@@ -237,20 +260,17 @@ if(orderId) {
                     name="telefono"
                     value={formData.telefono}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
                   />
+                  {focusedField === "telefono" && formErrors.telefono && (
+                    <p className="text-red-500 text-sm mb-2">
+                      {formErrors.telefono}
+                    </p>
+                  )}
                 </form>
               </div>
-              <div
-                onClick={
-                  isValid
-                    ? () => {
-                        FinalizarPedido();
-                        clearCart();
-                      }
-                    : undefined
-                }
-              >
+              <div onClick={isValid ? FinalizarPedido : undefined}>
                 <PurchaseButton
                   text={"Finalizar Compra"}
                   disabled={!isValid}

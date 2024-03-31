@@ -48,7 +48,7 @@ export const SidebarCart = ({ isOpen, setOpen }) => {
   const mostrarAlerta = () => {
     Toastify({
       text: "Producto Eliminado",
-
+      gravity:"bottom",
       duration: 2000,
       style: {
         background: "red",

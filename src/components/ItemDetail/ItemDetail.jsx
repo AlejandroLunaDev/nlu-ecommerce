@@ -11,7 +11,8 @@ const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
   const mostrarAlerta = () => {
     Toastify({
       text: "Producto Agregado al Carrito",
-
+      position: "right",
+      gravity:"bottom",
       duration: 1500,
       style: {
         background: "linear-gradient(to right, #00b09b, #96c93d)",
@@ -71,6 +72,7 @@ export function ItemDetail({
 }) {
   const ItemCount = ButtonCount;
   const { addItem, isInCart } = useContext(CartContext);
+  const [hasStock, setHasStock] = useState(stock > 0);
 
   const handleOnAdd = (quantity) => {
     const objProductToAdd = {
@@ -108,11 +110,17 @@ export function ItemDetail({
           <p className="text-[11px] md:text-sm">{description}</p>
         </article>
         <div className=" w-60 mt-8">
-          {!isInCart(id) ? (
-            <ItemCount onAdd={handleOnAdd} stock={stock} />
+          {hasStock ? (
+            !isInCart(id) ? (
+              <ItemCount onAdd={handleOnAdd} stock={stock} />
+            ) : (
+              <div className="bg-[#61005D] rounded text-center text-white py-1">
+                <Link to="/">Seguir Comprando</Link>
+              </div>
+            )
           ) : (
-            <div className="bg-[#61005D] rounded text-center text-white py-1">
-              <Link to="/">Seguir Comprando</Link>
+            <div className="bg-red-500 text-white rounded px-2 py-1">
+              No hay stock de este producto
             </div>
           )}
         </div>
