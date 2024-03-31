@@ -46,7 +46,7 @@ const compraFinalizada = ()=> {
     icon: "success",
     title: "Compra Finalizada",
     showConfirmButton: false,
-    timer: 1800
+    timer: 2200
   });
 }
 
