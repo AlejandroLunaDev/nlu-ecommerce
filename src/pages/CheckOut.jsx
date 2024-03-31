@@ -145,14 +145,14 @@ export const CheckOut = () => {
     return <h1>El id de su orden es: {orderId}</h1>;
   }
   return (
-    <section className="p-2 h-dvh w-full flex-col items-center">
-      <header className="flex gap-4 px-4 ">
+    <section className="p-2 h-dvh w-full overflow-y-auto">
+      <header className="flex gap-4 px-4  ">
         <Cart />
         <h3 className="font-bold text-xl">Mi Carrito</h3>
       </header>
       {cart.length > 0 ? (
-        <div className="mt-4 gap-8 ">
-          <table className="w-2/3 border border-[#61005D]  max-h-64">
+        <div className="mt-4 gap-8 md:flex ">
+          <table className="md:w-2/3 border border-[#61005D]  max-h-64">
             <thead className="border border-[#61005D] ">
               <tr>
                 <th></th>
@@ -198,7 +198,7 @@ export const CheckOut = () => {
               ))}
             </tbody>
           </table>
-          <aside className=" md:flex-col gap-5 w-1/3 p-5">
+          <aside className=" md:flex-col gap-5 md:w-1/3 p-5">
             <article>
               <h1 className="text-sm md:text-xl">Resumen de compra</h1>
               <div className="flex justify-between">
@@ -231,7 +231,7 @@ export const CheckOut = () => {
                     value={formData.nombre}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
+                    className="border border-gray-300 p-1 rounded-md mb-2 w-full"
                   />
                   {focusedField === "nombre" && formErrors.nombre && (
                     <p className="text-red-500 text-sm mb-2">
@@ -246,7 +246,7 @@ export const CheckOut = () => {
                     value={formData.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
+                    className="border border-gray-300 rounded-md mb-2 p-1 w-full"
                   />
                   {focusedField === "email" && formErrors.email && (
                     <p className="text-red-500 text-sm mb-2">
@@ -261,7 +261,7 @@ export const CheckOut = () => {
                     value={formData.telefono}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className="border border-gray-300 md:p-2 rounded-md mb-2 w-full"
+                    className="border border-gray-300 rounded-md mb-2 p-1 w-full"
                   />
                   {focusedField === "telefono" && formErrors.telefono && (
                     <p className="text-red-500 text-sm mb-2">
@@ -270,7 +270,7 @@ export const CheckOut = () => {
                   )}
                 </form>
               </div>
-              <div onClick={isValid ? FinalizarPedido : undefined}>
+              <div  onClick={isValid ? FinalizarPedido : undefined}>
                 <PurchaseButton
                   text={"Finalizar Compra"}
                   disabled={!isValid}
