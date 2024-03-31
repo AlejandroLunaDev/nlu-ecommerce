@@ -6,11 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../context/CartContext";
 
 export function InputSearch() {
- 
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-
-
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {

@@ -2,25 +2,22 @@ import { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { Add, Remove } from "@/components";
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
   const [count, setCount] = useState(initial);
 
-  const mostrarAlerta =()=>{
+  const mostrarAlerta = () => {
     Toastify({
-
       text: "Producto Agregado al Carrito",
-      
-      duration: 2000,
+
+      duration: 1500,
       style: {
         background: "linear-gradient(to right, #00b09b, #96c93d)",
       },
-      
-      }).showToast();
-
-  }
+    }).showToast();
+  };
 
   const increment = () => {
     if (count < stock) {
@@ -34,18 +31,26 @@ const ButtonCount = ({ onAdd, stock, initial = 1 }) => {
 
   return (
     <div className="flex justify-between">
-      <button className="border rounded-sm flex items-center justify-center" onClick={decrement}>
+      <button
+        className="border rounded-sm flex items-center justify-center"
+        onClick={decrement}
+      >
         <Remove />
       </button>
-      <p className='text-[13px] border rounded-sm px-3 flex items-center'>{count}</p>
-      <button className="border rounded-sm flex items-center justify-center" onClick={increment}>
+      <p className="text-[13px] border rounded-sm px-3 flex items-center">
+        {count}
+      </p>
+      <button
+        className="border rounded-sm flex items-center justify-center"
+        onClick={increment}
+      >
         <Add />
       </button>
       <button
         className="bg-[#61005D] rounded text-center text-white py-1 px-2"
         onClick={() => {
           onAdd(count);
-          mostrarAlerta(); 
+          mostrarAlerta();
         }}
       >
         Agregar al carrito
