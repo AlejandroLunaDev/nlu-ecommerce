@@ -8,14 +8,16 @@ import { ItemDetailContainer } from '../components/ItemDetailcontainer/ItemDetai
 import { CheckOut } from "../pages/CheckOut";
 
 export function AppRoutes() {
+
+
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/categoria/:categoria" element={<ItemlistContainer limit={32} />} />
-          <Route path={"/search/:categoria"} element={<ItemlistContainer limit={20} />} />
+          <Route path="/categoria/:categoryId" element={<ItemlistContainer />} />
+          <Route path={"/search/:categoria"} element={<ItemlistContainer  />} />
           <Route path="/product/:itemId" element={<ItemDetailContainer />} />
           <Route path="/CheckOut" element={<CheckOut />} />
         </Route>

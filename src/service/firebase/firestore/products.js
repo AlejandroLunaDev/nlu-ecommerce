@@ -2,12 +2,16 @@ import { getDocs, collection, query, where, doc, getDoc} from 'firebase/firestor
 import { db } from '../firebase'
 import { createProductAdaptedFromFirestore } from '@/adapters/createProductAdaptedFromFirestore'
 
-export const getProducts = (categoryId) => {
-    const productsCollection = categoryId ? (
-        query(collection(db, 'products'), where('category', '==', categoryId))
-    ) : (
-        collection(db, 'products')
-    )
+export const getProducts = async (categoryId) => {
+    let productsCollection;
+    if (categoryId) {
+        // Asegúrate de que el filtro coincida exactamente con las categorías en Firestore
+        productsCollection = query(collection(db, 'products'), where('categoria', '==', categoryId));
+      } else {
+        productsCollection = collection(db, 'products');
+      }
+     
+
 
     return getDocs(productsCollection)
         .then(querySnapshot => {
@@ -15,7 +19,6 @@ export const getProducts = (categoryId) => {
             const productsAdapted = querySnapshot.docs.map(doc => {
                 return createProductAdaptedFromFirestore(doc)
             })
-
             return productsAdapted
         })
         .catch(error => {
@@ -23,7 +26,7 @@ export const getProducts = (categoryId) => {
         })        
 }
 
-export const getProductById = (itemId) => {
+export const getProductById = async (itemId) => {
     const productDoc = doc(db, 'products', itemId)
 
     return getDoc(productDoc)

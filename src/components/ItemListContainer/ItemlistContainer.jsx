@@ -3,17 +3,25 @@ import { useAsync } from "../../hook/useAsync";
 import { memo } from "react";
 import { getProducts } from "../../service/firebase/firestore/products";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const ItemListMemoized = memo(ItemList);
 
 export function ItemlistContainer({ greeting }) {
   const { categoryId } = useParams();
-  const asyncFunction = () => getProducts(categoryId);
+  const location = useLocation();
+  const isSearchPage = location.pathname.includes("/search/");
+  let categoryToFetch = categoryId;
+
+  if (isSearchPage) {
+    categoryToFetch = location.pathname.split("/search/")[1];
+  }
+  const asyncFunction = () => getProducts(categoryToFetch);
   const {
     data: products,
     loading,
     error,
-  } = useAsync(asyncFunction, [categoryId]);
+  } = useAsync(asyncFunction, [categoryToFetch]);
   if (loading) {
     return <h1>Se estan cargando los productos...</h1>;
   }
