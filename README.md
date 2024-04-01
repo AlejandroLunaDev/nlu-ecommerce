@@ -1,5 +1,5 @@
 <div align='center'>
-    <img src='./public/nlufavicon.svg'>
+    <img src='./public/nlufavicon.svg' height='200'>
 </div>
 
 # Proyecto Ecommerce React para Coder-House
