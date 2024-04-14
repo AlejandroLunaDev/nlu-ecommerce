@@ -30,7 +30,7 @@ export function Navbar() {
             <NavCategorias handleCategoryChange={handleCategoryChange} />
           </section>
           <section className="hidden md:flex">
-            <ul className="flex gap-4">
+            {/* <ul className="flex gap-4">
               <li>
                 <NavLink to={routes.error} className="flex gap-2">
                   <Box />
@@ -49,7 +49,7 @@ export function Navbar() {
                   Notificaciones
                 </NavLink>
               </li>
-            </ul>
+  </ul>*/}
           </section>
           <CartWidget />
         </nav>
